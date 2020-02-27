@@ -13,6 +13,7 @@
     <script src="./libs/jquery-1.12.4.min.js"></script>
     <!-- 导入bootstrap的js文件 -->
     <script src="./libs/bootstrap/js/bootstrap.min.js"></script>
+    <script src="./js/index.js"></script>
 </head>
 
 <body>
@@ -54,36 +55,9 @@
 
         </div>
     </div>
-
+    <script>
+       
+    </script>
 </body>
-<script>
-    $(function () {
-        // http://localhost:8080/api/v1
-        $.ajax({
-            type: "get",
-            url: "http://localhost:8080/api/v1/admin/user/info",
-            // 根据token值判断用户
-            headers: {
-                Authorization: localStorage.getItem('token')
-            },
-            dataType: "json",
-            success: function (response) {
-                if (response.code === 200) {
-                    // 设置用户名称
-                    $('.user_info span').text(`欢迎${response.data.nickname}`)
-                    // 设置用户名头像
-                    $('.user_info img,.user_center_link img').prop('src', response.data.userPic);
-                    // $('.user_center_link img').prop('src', response.data.userPic);
-                }
-            }
-        });
-
-        // 退出登录，并且删除token值
-        $('.logout').click(function () {
-            localStorage.removeItem('token');
-            location.href = './login.html';
-        })
-    })
-</script>
 
 </html>
