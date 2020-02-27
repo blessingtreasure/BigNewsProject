@@ -66,4 +66,18 @@ $(function () {
         location.href = './login.html';
     })
 
+    // 菜单栏切换操作
+    $('.level01').click(function () {
+        $(this).addClass('active').siblings().removeClass('active');
+        if ($(this).next().hasClass('level02')) {
+            $('.level02').slideToggle();
+        } else {
+            $('.level02').slideUp();
+        }
+        $('.level02 li').click(function () {
+            $(this).addClass('active').siblings().removeClass('active');
+        })
+    })
+
+
 })
