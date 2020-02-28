@@ -1,4 +1,5 @@
 $(function () {
+
     /* 沙箱模式 */
     (function (w) {
         var baseURL = 'http://localhost:8080/api/v1';
@@ -27,9 +28,6 @@ $(function () {
         //暴露接口
         w.BigNew = BigNew;
     })(window);
-
-    console.log(BigNew.user_login);
-
     // 添加ajax 全局配置，将除去首页的所有页面的请求头添加token
     $.ajaxSetup({
         beforeSend: function (xhr) {
@@ -62,8 +60,15 @@ $(function () {
 
     // 退出登录，并且删除token值
     $('.logout').click(function () {
-        localStorage.removeItem('token');
-        location.href = './login.html';
+        $('.modal').modal();
+
+        $('.modal-footer button').click(function () {
+            if ($(this).attr('data-id') === '1') {
+                localStorage.removeItem('token');
+                location.href = './login.html';
+            }
+        })
+
     })
 
     // 菜单栏切换操作
