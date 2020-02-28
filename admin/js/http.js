@@ -1,5 +1,26 @@
 /* 沙箱模式 */
 (function (w) {
+    // 添加ajax 全局配置，所有页面的请求头添加token
+    $.ajaxSetup({
+        headers: {
+            Authorization: localStorage.getItem('token')
+        },
+        success: function () {
+
+        },
+        error: function () {
+            // 如果不是登录后进来访问的，就会重新登录页面
+
+            $('.modal').modal();
+            $('.modal-body p').text('错误进入，请重新登录');
+
+            $('.modal-footer button').click(function () {
+                if ($(this).attr('data-id') === '1') {
+                    location.href = './login.html';
+                }
+            })
+        }
+    })
     var baseURL = 'http://localhost:8080/api/v1'
     var BigNew = {
         baseURL: baseURL, //基地址
@@ -26,12 +47,3 @@
     //暴露接口
     w.BigNew = BigNew;
 })(window);
-
-// 添加ajax 全局配置，将除去首页的所有页面的请求头添加token
-$.ajaxSetup({
-    beforeSend: function (xhr) {
-        if (location.href.indexOf('admin/login.html') === -1) {
-            xhr.setRequestHeader("Authorization", localStorage.getItem('token'));
-        }
-    }
-})
