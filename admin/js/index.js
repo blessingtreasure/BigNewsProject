@@ -39,6 +39,7 @@ $(function () {
         $(this).addClass('active').siblings().removeClass('active');
         if ($(this).next().hasClass('level02')) {
             $('.level02').slideToggle();
+            $(this).find('b').toggleClass('rotate0');
         } else {
             $('.level02').slideUp();
         }

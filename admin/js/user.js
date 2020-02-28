@@ -18,24 +18,27 @@ $(function () {
 
     // 修改头像
     $('#exampleInputFile').change(function () {
-        console.dir(this.files[0]);
-
+        let file = this.files[0];
+        let url = URL.createObjectURL(file);
+        //1.4 将url路径赋值给img标签的src
+        $('.user_pic').attr('src', url);
     })
 
-    // 点击修改用户详情信息
-    $('.btn btn-success btn-edit').click(function (e) {
+    // 点击提交修改用户详情信息
+    $('.btn-edit').click(function (e) {
         e.preventDefault();
         let form = document.querySelector('#form');
         let fd = new FormData(form);
-        $.ajax({
-            type: "post",
-            url: BigNew.user_edit,
-            data: fd,
-            dataType: "dataType",
-            success: function (response) {
-                console.log(response);
+        let xhr = new XMLHttpRequest();
+        xhr.open('post', BigNew.user_edit);
+        xhr.setRequestHeader('Authorization', localStorage.getItem('token'));
+        xhr.send(fd);
+        xhr.onload = function () {
+            let res = JSON.parse(xhr.responseText);
+            if (res.code === 200) {
+                alert('修改成功!');
             }
-        });
+        }
     })
 
 

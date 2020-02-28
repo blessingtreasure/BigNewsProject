@@ -5,20 +5,27 @@
         headers: {
             Authorization: localStorage.getItem('token')
         },
-        success: function () {
-
+        beforeSend: function () {
+            if (window.NProgress) {
+                NProgress.start();
+            }
         },
-        error: function () {
+        error: () => {
             // 如果不是登录后进来访问的，就会重新登录页面
-
+            $('.modal-footer .btn-default').hide();
             $('.modal').modal();
             $('.modal-body p').text('错误进入，请重新登录');
-
             $('.modal-footer button').click(function () {
                 if ($(this).attr('data-id') === '1') {
                     location.href = './login.html';
                 }
             })
+        },
+        complete: function () {
+            if (window.NProgress) {
+                NProgress.done();
+            }
+
         }
     })
     var baseURL = 'http://localhost:8080/api/v1'
