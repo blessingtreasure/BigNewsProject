@@ -1,7 +1,6 @@
 $(function () {
 
 
-    // http://localhost:8080/api/v1
     $.ajax({
         type: "get",
         url: BigNew.user_info,

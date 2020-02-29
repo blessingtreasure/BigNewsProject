@@ -9,25 +9,51 @@
     <link rel="stylesheet" href="./libs/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="./css/iconfont.css">
+    <link rel="stylesheet" href="https://at.alicdn.com/t/font_1651702_pq7ptqlnot.css">
     <link rel="stylesheet" href="./css/main.css">
     <script src="./libs/jquery-1.12.4.min.js"></script>
     <!-- 引入模板引擎js文件 -->
     <script src="./libs/template-web.js"></script>
     <script src="./js/http.js"></script>
     <script src="./js/article_list.js"></script>
+    <!-- 获取所有文章/搜索到的文章 -->
     <script id="article" type="text/html">
+        {{each data}}
         <tr>
-            <td>王积千造统最头</td>
-            <td>杰克</td>
-            <td>奇趣事</td>
-            <td class="text-center">2017-06-08 07:08:46</td>
-            <td class="text-center">已发布</td>
+            <td>{{$value.title}}</td>
+            <td>{{$value.author}}</td>
+            <td>{{$value.category}}</td>
+            <td class="text-center">{{$value.date}}</td>
+            <td class="text-center">{{$value.state}}</td>
             <td class="text-center">
                 <a href="article_edit.html" class="btn btn-default btn-xs">编辑</a>
                 <a href="javascript:void(0);" class="btn btn-danger btn-xs delete">删除</a>
             </td>
+
+        </tr>
+        {{/each}}
+    </script>
+    <!-- 获取文章分类 -->
+    <script id="category_list" type="text/html">
+        <option value="">所有分类</option>
+        {{each data}}
+        <option>{{$value.name}}</option>
+        {{/each}}
+    </script>
+    <!--没有搜索到 -->
+    <script id="search" type="text/html">
+        <tr>
+            <td colspan="6">
+                <div class="search_box">
+                    <div class="content">
+                        <i class="iconfont icon-sousuo"></i>
+                        <p>没有搜索到该内容</p>
+                    </div>
+                </div>
+            </td>
         </tr>
     </script>
+
 </head>
 
 <body>
@@ -83,7 +109,27 @@
                     </tr>
                 </tbody>
             </table>
-            <div class="row text-center">
+            <div class="row text-right" style="margin-right: 5px;">
+                <!-- 翻页 -->
+                <nav aria-label="Page navigation">
+                    <ul class="pagination">
+                        <li>
+                            <a href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li class="active"><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li>
+                            <a href="#" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
         </div>
     </div>
