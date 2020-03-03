@@ -37,6 +37,7 @@ $(function () {
     $('.level01').click(function () {
         $(this).addClass('active').siblings().removeClass('active');
         if ($(this).next().hasClass('level02')) {
+            $('#main_body iframe').attr('src', 'article_list.html');
             $('.level02').slideToggle();
             $(this).find('b').toggleClass('rotate0');
         } else {

@@ -10,16 +10,21 @@
                 NProgress.start();
             }
         },
-        error: () => {
-            // 如果不是登录后进来访问的，就会重新登录页面
-            $('.modal-footer .btn-default').hide();
-            $('.modal').modal();
-            $('.modal-body p').text('错误进入，请重新登录');
-            $('.modal-footer button').click(function () {
-                if ($(this).attr('data-id') === '1') {
-                    location.href = './login.html';
-                }
-            })
+        error: (xhr) => {
+            if (xhr.status === 403) {
+                // 如果不是登录后进来访问的，就会重新登录页面
+                $('.modal-footer .btn-default').hide();
+                $('.modal').modal();
+                $('.modal-body p').text('错误进入，请重新登录');
+                $('.modal-footer button').click(function () {
+                    if ($(this).attr('data-id') === '1') {
+                        location.href = './login.html';
+                    }
+                })
+            } else if (xhr.status === 400) {
+                alert('参数错误,请重新输入');
+            }
+
         },
         complete: function () {
             if (window.NProgress) {
@@ -39,7 +44,7 @@
         category_add: baseURL + '/admin/category/add', //文章类别新增
         category_search: baseURL + '/admin/category/search', //文章类别搜索
         category_edit: baseURL + '/admin/category/edit', //文章类别编辑
-        category_delete: baseURL + '/admin/category/delete', //文章类别删除
+        category_delete: baseURL + '/admin/category/delete', //9.文章类别删除
         article_query: baseURL + '/admin/article/query', //文章搜索
         article_publish: baseURL + '/admin/article/publish', //文章发布
         article_search: baseURL + '/admin/article/search', //文章信息查询
